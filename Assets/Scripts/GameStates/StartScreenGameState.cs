@@ -7,8 +7,8 @@ namespace SpaceBartender.GameStates {
 	public class StartScreenGameState : IGameState {
 
 		// Called when the player starts the game.
-		public void OnClickStartGame(PointerEventData e) {
-			Manager.PushStateAsync ("Gameplay");
+		public void OnClickStartGame (PointerEventData e) {
+			Manager.PushStateAsync ("Gameplay Screen");
 		}
 	}
 }
