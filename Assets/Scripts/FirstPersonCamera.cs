@@ -8,6 +8,13 @@ namespace SpaceBartender {
 	[RequireComponent(typeof(Camera))]
 	public class FirstPersonCamera : MonoBehaviour {
 
+		// Treshold for making sure the mouse doesn't snap around.
+		private const float SNAP_THRESHOLD = 0.5f;
+
+		// If set to true, inverts Y camera rotation.
+		[SerializeField]
+		private bool invertY = false;
+
 		// Horizontal rotation sensitivity.
 		[SerializeField]
 		private float horizontalSensitivity = 15f;
@@ -37,9 +44,17 @@ namespace SpaceBartender {
 
 			// Update rotation via mouse motion.
 			if(Cursor.lockState == CursorLockMode.Locked) {
-				float rotX = transform.localEulerAngles.y + Input.GetAxis ("Mouse X") * horizontalSensitivity;
-				rotY = Mathf.Clamp (rotY + Input.GetAxis ("Mouse Y") * verticalSensitivity, minRotationY, maxRotationY);
-				transform.localEulerAngles = new Vector3 (rotY, rotX, 0);
+
+				// Get mouse axes.
+				float mouseX = Mathf.Clamp(Input.GetAxis ("Mouse X"), -SNAP_THRESHOLD, SNAP_THRESHOLD);
+				float mouseY = Mathf.Clamp(Input.GetAxis ("Mouse Y"), -SNAP_THRESHOLD, SNAP_THRESHOLD);
+
+				// Calculate rotation.
+				float rotX = transform.localEulerAngles.y + mouseX * horizontalSensitivity;
+				rotY = Mathf.Clamp (rotY + mouseY * verticalSensitivity, minRotationY, maxRotationY);
+
+				// Apply rotation.
+				transform.localEulerAngles = new Vector3 (rotY * (invertY ? 1 : -1), rotX, 0);
 			}
 
 			#if UNITY_EDITOR || DEBUG
