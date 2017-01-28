@@ -72,7 +72,7 @@ namespace SpaceBartender {
 				LayerMask mask = 1 << LayerMask.NameToLayer("SelectableObjects");
 				// Shoot a ray out of the camera from the object's current position
 				if (Physics.Raycast(cam.transform.position, cam.transform.forward, 10, mask.value)) {
-          print("There is something in front of the object!");
+					print("There is something in front of the object!");
 				}
 				else {
 					print("There is nothing");
