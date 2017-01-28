@@ -40,6 +40,9 @@ namespace SpaceBartender {
 		// Reference to attached Camera component.
 		private Camera cam;
 
+		// The currently targeted selectable.
+		private SelectableObject target;
+
 		// Initialize this component.
 		void Start () {
 			Cursor.lockState = CursorLockMode.Locked;
@@ -69,13 +72,15 @@ namespace SpaceBartender {
 				transform.localEulerAngles = new Vector3 (0, rotX, 0);
 				cam.transform.localEulerAngles = new Vector3 (lookRotationY * (invertLookY ? 1 : -1), 0, 0);
 
+				// Raycast seek selectables.
 				LayerMask mask = 1 << LayerMask.NameToLayer("SelectableObjects");
-				// Shoot a ray out of the camera from the object's current position
-				if (Physics.Raycast(cam.transform.position, cam.transform.forward, 10, mask.value)) {
-					print("There is something in front of the object!");
-				}
-				else {
-					print("There is nothing");
+				RaycastHit hit;
+				Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 10, mask.value);
+				target = hit.transform != null ? hit.transform.GetComponent<SelectableObject> () : null;
+
+				// On click, interact.
+				if(target != null && Input.GetMouseButtonUp(0)) {
+					target.Interact (this);
 				}
 			}
 
