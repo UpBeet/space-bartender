@@ -68,6 +68,15 @@ namespace SpaceBartender {
 				// Apply rotation.
 				transform.localEulerAngles = new Vector3 (0, rotX, 0);
 				cam.transform.localEulerAngles = new Vector3 (lookRotationY * (invertLookY ? 1 : -1), 0, 0);
+
+				LayerMask mask = 1 << LayerMask.NameToLayer("SelectableObjects");
+				// Shoot a ray out of the camera from the object's current position
+				if (Physics.Raycast(cam.transform.position, cam.transform.forward, 10, mask.value)) {
+          print("There is something in front of the object!");
+				}
+				else {
+					print("There is nothing");
+				}
 			}
 
 			#if UNITY_EDITOR || DEBUG
