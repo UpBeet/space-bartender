@@ -23,8 +23,17 @@ namespace SpaceBartender {
 
 		// Interact with this object.
 		public override SelectableObject Interact (PlayerController player) {
-			print("Grabbed ingredient " + ingredient.ToString());
+			player.AddIngredient (ingredient);
 			return base.Interact (player);
+		}
+
+		public static Sprite GetIngredientSprite (IngredientType ingredient) {
+			switch(ingredient) {
+				case IngredientType.RedDrank: return Resources.LoadAll<Sprite> ("Sprites/potion_tileset")[0];
+				case IngredientType.BlueDrank: return Resources.LoadAll<Sprite> ("Sprites/potion_tileset")[1];
+				case IngredientType.GreenDrank: return Resources.LoadAll<Sprite> ("Sprites/potion_tileset")[2];
+				default: return null;
+			}
 		}
 	}
 }

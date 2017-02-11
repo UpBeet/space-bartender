@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ namespace SpaceBartender {
 
 	// Player controller script.
 	public class PlayerController : MonoBehaviour {
+
+		#region Controls
 
 		// Treshold for making sure the mouse doesn't snap around.
 		private const float LOOK_SNAP_THRESHOLD = 0.5f;
@@ -42,6 +45,17 @@ namespace SpaceBartender {
 
 		// The currently targeted selectable.
 		private SelectableObject target;
+
+		#endregion
+
+		// Maximum number of ingredients in a recipe.
+		private const int MAX_INGREDIENTS = 3;
+
+		// Event that emits when the player adds an ingredient to the pending recipe.
+		public Action<IngredientType> OnAddIngredient;
+
+		// The current pending list of recipes.
+		private List<IngredientType> pendingRecipe = new List<IngredientType> ();
 
 		// Initialize this component.
 		void Start () {
@@ -92,6 +106,20 @@ namespace SpaceBartender {
 			}
 
 			#endif
+		}
+
+		// Add an ingredient to the list the player is holding.
+		public void AddIngredient(IngredientType ingredient) {
+
+			// Add ingredient to pending recipe.
+			if (pendingRecipe.Count < 3) {
+				pendingRecipe.Add (ingredient);
+
+				// Emit add event.
+				if (OnAddIngredient != null) {
+					OnAddIngredient (ingredient);
+				}
+			}
 		}
 	}
 }
