@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpaceBartender {
+namespace SpaceBartender.Interactibles {
 
 	// A SelectableObject that contains an Ingredient.
 	public class IngredientContainer : SelectableObject {

@@ -17,14 +17,20 @@ namespace SpaceBartender.UI {
 
 			// Listen to events emitted from player object.
 			player = FindObjectOfType<PlayerController> ();
-			player.OnAddIngredient += AddIngredient;
+			if (player != null) {
+				player.OnAddIngredient += AddIngredient;
+				player.OnMixIngredients += MixIngredients;
+			}
 		}
 
 		// Called when this component is destroyed.
 		void OnDestroy() {
 
 			// Stop listening to events emitted from player.
-			player.OnAddIngredient -= AddIngredient;
+			if (player != null) {
+				player.OnAddIngredient -= AddIngredient;
+				player.OnMixIngredients -= MixIngredients;
+			}
 		}
 
 		// Adds an ingredient to the list.
@@ -34,6 +40,21 @@ namespace SpaceBartender.UI {
 			Image img = new GameObject (ingredient.ToString ()).AddComponent<Image> ();
 			img.transform.SetAndClampParent (transform);
 			img.sprite = Ingredients.GetIngredientSprite (ingredient);
+		}
+
+		// Clears the current ingredients.
+		private void ClearIngredients () {
+
+			// Clear all children.
+			foreach (Transform child in transform) {
+				Destroy (child.gameObject);
+			}
+		}
+
+		// Animate mixing ingredients into newIngredient.
+		private void MixIngredients (IngredientType newIngredient) {
+			ClearIngredients ();
+			AddIngredient (newIngredient);
 		}
 	}
 }

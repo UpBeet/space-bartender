@@ -54,6 +54,9 @@ namespace SpaceBartender {
 		// Event that emits when the player adds an ingredient to the pending recipe.
 		public Action<IngredientType> OnAddIngredient;
 
+		// Event that emits when the player mixes their ingredients. Includes the new ingredient type.
+		public Action<IngredientType> OnMixIngredients;
+
 		// The current pending list of recipes.
 		private List<IngredientType> pendingRecipe = new List<IngredientType> ();
 
@@ -61,9 +64,6 @@ namespace SpaceBartender {
 		void Start () {
 			Cursor.lockState = CursorLockMode.Locked;
 			cam = GetComponentInChildren<Camera> ();
-
-			Debug.Log (Recipes.GetRecipeName (IngredientType.BlueDrank, IngredientType.RedDrank));
-			Debug.Log (Recipes.GetRecipeName (IngredientType.RedDrank, IngredientType.GreenDrank));
 		}
 
 		// Update this component between frames.
@@ -90,9 +90,8 @@ namespace SpaceBartender {
 				cam.transform.localEulerAngles = new Vector3 (lookRotationY * (invertLookY ? 1 : -1), 0, 0);
 
 				// Raycast seek selectables.
-				LayerMask mask = 1 << LayerMask.NameToLayer("SelectableObjects");
 				RaycastHit hit;
-				Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 10, mask.value);
+				Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 10);
 				target = hit.transform != null ? hit.transform.GetComponent<SelectableObject> () : null;
 
 				// On click, interact.
@@ -112,7 +111,7 @@ namespace SpaceBartender {
 		}
 
 		// Add an ingredient to the list the player is holding.
-		public void AddIngredient(IngredientType ingredient) {
+		public void AddIngredient (IngredientType ingredient) {
 
 			// Add ingredient to pending recipe.
 			if (pendingRecipe.Count < 3) {
@@ -122,6 +121,16 @@ namespace SpaceBartender {
 				if (OnAddIngredient != null) {
 					OnAddIngredient (ingredient);
 				}
+			}
+		}
+
+		// Mix the player's ingredients.
+		public void MixIngredients () {
+			if(pendingRecipe.Count > 0) {
+				IngredientType recipe = Ingredients.GetMix (pendingRecipe);
+				pendingRecipe.Clear ();
+				pendingRecipe.Add (recipe);
+				OnMixIngredients (recipe);
 			}
 		}
 	}
