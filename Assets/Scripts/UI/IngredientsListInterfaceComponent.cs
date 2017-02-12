@@ -33,7 +33,7 @@ namespace SpaceBartender.UI {
 			// Add a new image to the list.
 			Image img = new GameObject (ingredient.ToString ()).AddComponent<Image> ();
 			img.transform.SetAndClampParent (transform);
-			img.sprite = IngredientContainer.GetIngredientSprite (ingredient);
+			img.sprite = Ingredients.GetIngredientSprite (ingredient);
 		}
 	}
 }
