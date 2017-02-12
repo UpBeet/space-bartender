@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 800401613}
   - component: {fileID: 800401612}
   - component: {fileID: 800401616}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Red Drank Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -477,7 +477,7 @@ GameObject:
   - component: {fileID: 975650216}
   - component: {fileID: 975650215}
   - component: {fileID: 975650214}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Green Drank Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1153,7 +1153,7 @@ GameObject:
   - component: {fileID: 1380455656}
   - component: {fileID: 1380455655}
   - component: {fileID: 1380455654}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Blue Drank Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1246,6 +1246,7 @@ GameObject:
   - component: {fileID: 1723638217}
   - component: {fileID: 1723638216}
   - component: {fileID: 1723638215}
+  - component: {fileID: 1723638218}
   m_Layer: 0
   m_Name: Sink
   m_TagString: Untagged
@@ -1316,6 +1317,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1723638213}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1723638218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1723638213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efeca5e10c9de4cf790a48babbd6753a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1783889602
 GameObject:
   m_ObjectHideFlags: 0

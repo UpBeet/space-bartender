@@ -57,6 +57,9 @@ namespace SpaceBartender {
 		// Event that emits when the player mixes their ingredients. Includes the new ingredient type.
 		public Action<IngredientType> OnMixIngredients;
 
+		// Event that emits when the player dumps their ingredients.
+		public Action OnDumpIngredients;
+
 		// The current pending list of recipes.
 		private List<IngredientType> pendingRecipe = new List<IngredientType> ();
 
@@ -126,11 +129,31 @@ namespace SpaceBartender {
 
 		// Mix the player's ingredients.
 		public void MixIngredients () {
+
+			// Ignore if no ingredients held.
 			if(pendingRecipe.Count > 0) {
+
+				// Mix recipe.
 				IngredientType recipe = Ingredients.GetMix (pendingRecipe);
 				pendingRecipe.Clear ();
 				pendingRecipe.Add (recipe);
-				OnMixIngredients (recipe);
+
+				// Fire event.
+				if(OnMixIngredients != null) {
+					OnMixIngredients (recipe);
+				}
+			}
+		}
+
+		// Dump out current ingredients.
+		public void DumpIngredients () {
+
+			// Clear recipe.
+			pendingRecipe.Clear ();
+
+			// Fire event.
+			if(OnDumpIngredients != null) {
+				OnDumpIngredients ();
 			}
 		}
 	}

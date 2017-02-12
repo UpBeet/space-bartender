@@ -20,6 +20,7 @@ namespace SpaceBartender.UI {
 			if (player != null) {
 				player.OnAddIngredient += AddIngredient;
 				player.OnMixIngredients += MixIngredients;
+				player.OnDumpIngredients += ClearIngredients;
 			}
 		}
 
@@ -30,6 +31,7 @@ namespace SpaceBartender.UI {
 			if (player != null) {
 				player.OnAddIngredient -= AddIngredient;
 				player.OnMixIngredients -= MixIngredients;
+				player.OnDumpIngredients -= ClearIngredients;
 			}
 		}
 
