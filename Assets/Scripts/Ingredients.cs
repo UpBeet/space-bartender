@@ -12,8 +12,8 @@ namespace SpaceBartender {
 		RedDrank = 1 << 0,
 		BlueDrank = 1 << 1,
 		GreenDrank = 1 << 2,
-		PurpleDrank = RedDrank ^ BlueDrank,
-		CyanDrank = BlueDrank ^ GreenDrank,
+		PurpleDrank = RedDrank | BlueDrank,
+		CyanDrank = BlueDrank | GreenDrank,
 	}
 
 	// Static class with manifest functionality for ingredients.
@@ -23,7 +23,7 @@ namespace SpaceBartender {
 		public static IngredientType GetMix (params IngredientType[] ingredients) {
 			IngredientType flag = 0;
 			foreach (IngredientType i in ingredients) {
-				flag ^= i;
+				flag |= i;
 			}
 			return flag;
 		}
