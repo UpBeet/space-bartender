@@ -1,14 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace SpaceBartender {
 
 	// Enumerator for ingredient types in the game.
+	[Flags]
 	public enum IngredientType {
-		RedDrank,
-		BlueDrank,
-		GreenDrank,
+		RedDrank = 1 << 0,
+		BlueDrank = 1 << 1,
+		GreenDrank = 1 << 2,
 	}
 
 	// Static class with manifest functionality for ingredients.

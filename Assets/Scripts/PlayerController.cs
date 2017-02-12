@@ -61,6 +61,9 @@ namespace SpaceBartender {
 		void Start () {
 			Cursor.lockState = CursorLockMode.Locked;
 			cam = GetComponentInChildren<Camera> ();
+
+			Debug.Log (Recipes.GetRecipeName (IngredientType.BlueDrank, IngredientType.RedDrank));
+			Debug.Log (Recipes.GetRecipeName (IngredientType.RedDrank, IngredientType.GreenDrank));
 		}
 
 		// Update this component between frames.
